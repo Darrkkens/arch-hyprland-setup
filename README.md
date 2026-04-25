@@ -60,5 +60,7 @@ install.sh
 
 ---
 
+## Arch Linux Hyprland Setup
+
 ![Preview do setup](images/setup.jpeg)
 
