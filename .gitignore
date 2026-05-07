@@ -1,0 +1,4 @@
+.claude/
+*.credentials.json
+.credentials.json
+.ssh/
