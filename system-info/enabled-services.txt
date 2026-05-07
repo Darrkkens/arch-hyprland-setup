@@ -1,0 +1,24 @@
+UNIT FILE                               STATE   PRESET
+bluetooth.service                       enabled disabled
+docker.service                          enabled disabled
+getty@.service                          enabled enabled
+NetworkManager-dispatcher.service       enabled disabled
+NetworkManager-wait-online.service      enabled disabled
+NetworkManager.service                  enabled disabled
+sddm.service                            enabled disabled
+systemd-network-generator.service       enabled enabled
+systemd-networkd-wait-online.service    enabled enabled
+systemd-networkd.service                enabled enabled
+systemd-resolved.service                enabled enabled
+systemd-timesyncd.service               enabled enabled
+upower.service                          enabled disabled
+systemd-networkd-resolve-hook.socket    enabled disabled
+systemd-networkd-varlink-metrics.socket enabled disabled
+systemd-networkd-varlink.socket         enabled disabled
+systemd-networkd.socket                 enabled disabled
+systemd-resolved-monitor.socket         enabled disabled
+systemd-resolved-varlink.socket         enabled disabled
+systemd-userdbd.socket                  enabled enabled
+remote-fs.target                        enabled enabled
+
+21 unit files listed.
