@@ -1,0 +1,5 @@
+#!/bin/bash
+
+wlogout
+EOF
+
