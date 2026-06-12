@@ -15,6 +15,7 @@
 	"modules": [
 		"custom/menu",
 		"custom/light_dark",
+		"custom/clipboard",
 		"custom/tty",
 		"custom/browser",
 		"custom/settings",
@@ -70,12 +71,13 @@
 	"orientation": "inherit",
 	"drawer": {
 		"transition-duration": 500,
-		"children-class": "bluetooth",
+		"children-class": "custom/vpn",
 		"transition-left-to-right": true
         },
 	"modules": [
 		"network",
-		"bluetooth",
+		"network#speed",
+		"custom/vpn",
 	]
 },
 

@@ -6,6 +6,8 @@ elephant-desktopapplications
 elephant-desktopapplications-debug
 elephant-providerlist
 elephant-providerlist-debug
+insomnia-bin
+insomnia-bin-debug
 matugen-bin
 matugen-bin-debug
 pixie-sddm-git
@@ -15,7 +17,9 @@ vesktop-debug
 visual-studio-code-bin
 walker
 walker-debug
+warp-terminal-bin
 wlogout
 wlogout-debug
 yay
 yay-debug
+zen-browser-bin

@@ -24,6 +24,8 @@
 "modules-left": [
 	"clock",
 	"custom/separator#blank",
+	"custom/weather",
+	"custom/separator#blank",
 	"tray",
 	],
 
@@ -43,8 +45,9 @@
 	"group/mobo_drawer",
 	"custom/separator#line",  
 	"group/audio",
+	"custom/separator#line",
+	"group/connections",
 	"custom/separator#dot-line",
-	"custom/separator#blank", 
 	"group/status",
 	],
 }

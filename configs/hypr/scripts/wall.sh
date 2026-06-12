@@ -1,24 +1,14 @@
 #!/bin/bash
 
-WALL="$HOME/Pictures/wallpapers/anime_skull.png"
+CURRENT_WALL="$HOME/.config/hypr/current_wallpaper"
+DEFAULT_WALL="$HOME/Pictures/wallpapers/this-wallpaper-is-not-available.png"
 
-pgrep -x awww-daemon >/dev/null || awww-daemon &
-sleep 0.4
+if [ -e "$CURRENT_WALL" ]; then
+  WALL="$CURRENT_WALL"
+else
+  WALL="$DEFAULT_WALL"
+  mkdir -p "$HOME/.config/hypr"
+  ln -sf "$WALL" "$CURRENT_WALL"
+fi
 
-awww img "$WALL" \
-  --transition-type fade \
-  --transition-duration 0.8 \
-  --transition-fps 60 \
-  --transition-step 90
-
-source_color=$(
-  matugen image "$WALL" --json hex | python -c '
-import sys, json
-data = json.load(sys.stdin)
-print(data["colors"]["dark"]["source_color"])
-'
-)
-
-[ -z "$source_color" ] && exit 1
-
-matugen color hex "$source_color" -m dark
+"$HOME/.config/hypr/scripts/apply-wallpaper.sh" "$WALL" fade 0.8

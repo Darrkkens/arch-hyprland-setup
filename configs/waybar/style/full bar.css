@@ -139,6 +139,7 @@ tooltip label{
 #custom-backlight,
 #custom-browser,
 #custom-cava_mviz,
+#custom-clipboard,
 #custom-cycle_wall,
 #custom-dot_update,
 #custom-file_manager,
@@ -159,6 +160,7 @@ tooltip label{
 #custom-swaync,
 #custom-tty,
 #custom-updater,
+#custom-vpn,
 #custom-weather,
 #custom-weather.clearNight,
 #custom-weather.cloudyFoggyDay,
@@ -186,6 +188,21 @@ tooltip label{
 }
 #temperature.critical {
 	color: red;
+}
+
+#network {
+	min-width: 18px;
+	min-height: 18px;
+	padding: 4px 10px 4px 4px;
+	border-radius: 999px;
+}
+
+#custom-vpn.connected {
+	color: #39FF14;
+}
+
+#custom-vpn.disconnected {
+	color: #cc3436;
 }
 
 @keyframes blink {

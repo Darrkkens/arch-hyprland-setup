@@ -175,3 +175,4 @@ gco() {
   git switch "$1"
 }
 export PATH="$HOME/.local/bin:$PATH"
+alias omni-dev='OMNI_USE_PROJECT_SECRETS=1 go run main.go'

@@ -12,6 +12,8 @@ btop
 btrfs-progs
 calcurse
 cava
+cliphist
+cmatrix
 discord
 docker
 docker-compose
@@ -26,6 +28,7 @@ flameshot
 flatpak
 fzf
 gedit
+ghostty
 git
 github-cli
 gnome-calculator
@@ -38,6 +41,7 @@ hypridle
 hyprland
 hyprlock
 hyprpaper
+insomnia-bin
 intel-ucode
 jq
 kate
@@ -51,8 +55,10 @@ mousepad
 mpv
 nano
 nemo
-network-manager-applet
 networkmanager
+network-manager-applet
+networkmanager-l2tp
+networkmanager-pptp
 noto-fonts
 noto-fonts-emoji
 nvm
@@ -67,6 +73,7 @@ pipewire-pulse
 pixie-sddm-git
 plasma-nm
 postman-bin
+pptpclient
 python-pip
 python-virtualenv
 qt6ct
@@ -76,6 +83,7 @@ sddm
 slurp
 sof-firmware
 starship
+strongswan
 sudo
 swaync
 tmux
@@ -87,6 +95,7 @@ vesktop
 vim
 visual-studio-code-bin
 walker
+warp-terminal-bin
 waybar
 wget
 wireplumber
@@ -97,10 +106,12 @@ wofi
 xcursor-vanilla-dmz
 xdg-desktop-portal-gtk
 xdg-desktop-portal-hyprland
+xl2tpd
 yay
 yay-debug
 zathura
 zathura-pdf-mupdf
+zen-browser-bin
 zoxide
 zram-generator
 zsh

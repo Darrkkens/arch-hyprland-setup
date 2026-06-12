@@ -4,10 +4,21 @@ Configuração pessoal de ambiente Linux baseada em Arch Linux + Hyprland, com f
 
 ## Pacotes
 
-Instala automaticamente os pacotes definidos em:
+Os pacotes ficam definidos em:
 
-* packages.txt → pacotes oficiais
-* aur-packages.txt → AUR (opcional)
+* `packages/pacman.txt` -> pacotes oficiais
+* `packages/aur.txt` -> pacotes AUR
+* `packages/flatpak.txt` -> aplicativos Flatpak
+
+Os arquivos `packages.txt` e `aur-packages.txt` tambem sao mantidos por compatibilidade com scripts antigos.
+
+Para atualizar as listas com os pacotes instalados no sistema atual:
+
+```bash
+./scripts/update.sh
+```
+
+Esse script tambem sincroniza as configuracoes atuais de `~/.config` para `configs/`.
 
 ---
 
@@ -33,9 +44,9 @@ configs/
 └── zsh/
 
 scripts/
+packages/
 packages.txt
 aur-packages.txt
-install.sh
 ```
 
 ---
@@ -63,4 +74,3 @@ install.sh
 ## Arch Linux Hyprland Setup
 
 ![Preview do setup](images/setup.jpeg)
-

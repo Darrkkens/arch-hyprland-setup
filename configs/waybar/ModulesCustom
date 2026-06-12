@@ -9,10 +9,10 @@
 	"format": "{}",
 	"format-alt": "{alt}: {}",
 	"format-alt-click": "click",
-	"interval": 3600,
+	"interval": 600,
 	"return-type": "json",
-	"exec": "$HOME/.config/hypr/UserScripts/Weather.py",
-	//"exec": "$HOME/.config/hypr/UserScripts/Weather.sh",
+	"exec": "$HOME/.config/waybar/scripts/Weather.sh",
+	"on-click": "$HOME/.config/waybar/scripts/Weather.sh open",
 	//"exec-if": "ping wttr.in -c1",
 	"tooltip": true,
 },
@@ -43,6 +43,26 @@
 	"on-click": "$HOME/.config/hypr/scripts/Kool_Quick_Settings.sh",
 	"tooltip": true,
 	"tooltip-format": "Launch KooL Hyprland Settings Menu",
+},
+
+"custom/clipboard": {
+	"exec": "$HOME/.config/waybar/scripts/Clipboard.sh status",
+	"interval": 60,
+	"format": "{}",
+	"on-click": "$HOME/.config/waybar/scripts/Clipboard.sh open",
+	"on-click-right": "$HOME/.config/waybar/scripts/Clipboard.sh clear",
+	"tooltip": true,
+	"tooltip-format": "Clipboard history\nLeft Click: Open\nRight Click: Clear",
+},
+
+"custom/vpn": {
+	"exec": "$HOME/.config/waybar/scripts/VpnStatus.sh",
+	"interval": 30,
+	"return-type": "json",
+	"format": "{}",
+	"on-click": "$HOME/.config/waybar/scripts/NetworkMenu.sh",
+	"on-click-right": "nm-connection-editor",
+	"tooltip": true,
 },
 
 "custom/cycle_wall": {
@@ -108,11 +128,11 @@
 
 "custom/menu": {
 	"format": "  ",
-	"on-click": "pkill rofi || rofi -show drun -modi run,drun,filebrowser,window",
+	"on-click": "walker",
 	"on-click-middle": "$HOME/.config/hypr/UserScripts/WallpaperSelect.sh",
 	"on-click-right": "$HOME/.config/hypr/scripts/WaybarLayout.sh",
 	"tooltip": true,
-	"tooltip-format": "Left Click: Rofi Menu\nMiddle Click: Wallpaper Menu\nRight Click: Waybar Layout Menu",
+	"tooltip-format": "Left Click: Walker Menu\nMiddle Click: Wallpaper Menu\nRight Click: Waybar Layout Menu",
 },
 // This is a custom cava visualizer
 "custom/cava_mviz": {
