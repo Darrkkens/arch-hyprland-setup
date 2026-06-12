@@ -1,18 +1,49 @@
-#!/bin/bash
+#!/usr/bin/env bash
+set -euo pipefail
 
+ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+CONFIG_DIR="$ROOT_DIR/configs"
+PACKAGE_DIR="$ROOT_DIR/packages"
 
-[ -d ~/.config/hypr ] && rsync -av --delete ~/.config/hypr/ .config/hypr/
-[ -d ~/.config/waybar ] && rsync -av --delete ~/.config/waybar/ .config/waybar/
-[ -d ~/.config/wlogout ] && rsync -av --delete ~/.config/wlogout/ .config/wlogout/
-[ -d ~/.config/kitty ] && rsync -av --delete ~/.config/kitty/ .config/kitty/
-[ -d ~/.config/swaync ] && rsync -av --delete ~/.config/swaync/ .config/swaync/
-[ -d ~/.config/rofi ] && rsync -av --delete ~/.config/rofi/ .config/rofi/
-[ -d ~/.config/wofi ] && rsync -av --delete ~/.config/wofi/ .config/wofi/
+sync_config_dir() {
+  local name="$1"
+  local source="$HOME/.config/$name"
+  local target="$CONFIG_DIR/$name"
 
-[ -f ~/.config/starship.toml ] && cp ~/.config/starship.toml .config/starship.toml
-[ -f ~/.zshrc ] && cp ~/.zshrc zshrc
+  if [[ -d "$source" ]]; then
+    mkdir -p "$target"
+    rsync -a --delete "$source/" "$target/"
+    echo "config atualizado: $name"
+  fi
+}
 
-pacman -Qqe > packages/pacman.txt
-command -v yay >/dev/null 2>&1 && yay -Qqm > packages/aur.txt
-command -v flatpak >/dev/null 2>&1 && flatpak list --app --columns=application > packages/flatpak.txt
+mkdir -p "$CONFIG_DIR" "$PACKAGE_DIR"
 
+for config in hypr waybar wlogout kitty swaync rofi wofi; do
+  sync_config_dir "$config"
+done
+
+if [[ -f "$HOME/.config/starship.toml" ]]; then
+  cp "$HOME/.config/starship.toml" "$CONFIG_DIR/starship.toml"
+  echo "config atualizado: starship.toml"
+fi
+
+if [[ -f "$HOME/.zshrc" ]]; then
+  cp "$HOME/.zshrc" "$ROOT_DIR/zshrc"
+  echo "config atualizado: zshrc"
+fi
+
+pacman -Qqe | sort -u > "$PACKAGE_DIR/pacman.txt"
+cp "$PACKAGE_DIR/pacman.txt" "$ROOT_DIR/packages.txt"
+echo "pacotes oficiais atualizados"
+
+if command -v yay >/dev/null 2>&1; then
+  yay -Qqm | sort -u > "$PACKAGE_DIR/aur.txt"
+  cp "$PACKAGE_DIR/aur.txt" "$ROOT_DIR/aur-packages.txt"
+  echo "pacotes AUR atualizados"
+fi
+
+if command -v flatpak >/dev/null 2>&1; then
+  flatpak list --app --columns=application | sort -u > "$PACKAGE_DIR/flatpak.txt"
+  echo "flatpaks atualizados"
+fi
