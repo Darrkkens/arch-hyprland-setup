@@ -1,8 +1,39 @@
+# =========================================================
+# LOCALE
+# =========================================================
 export LANG=pt_BR.UTF-8
 export LC_ALL=pt_BR.UTF-8
 
 
-# binds
+# =========================================================
+# HISTÓRICO
+# =========================================================
+HISTFILE="$HOME/.zsh_history"
+HISTSIZE=10000
+SAVEHIST=10000
+
+setopt append_history
+setopt share_history
+setopt hist_ignore_dups
+setopt hist_ignore_space
+setopt hist_reduce_blanks
+setopt inc_append_history
+
+
+# =========================================================
+# AUTOCOMPLETE
+# =========================================================
+autoload -Uz compinit
+compinit
+
+zstyle ':completion:*' menu select
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+
+
+# =========================================================
+# BINDS
+# =========================================================
 bindkey "^[[H" beginning-of-line
 bindkey "^[[F" end-of-line
 bindkey "^[[3~" delete-char
@@ -11,33 +42,77 @@ bindkey "^[[3;5~" kill-word
 bindkey "^[[1;5D" backward-word
 bindkey "^[[1;5C" forward-word
 
-# Plugins
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
-#Fzf
+# =========================================================
+# PATHS
+# =========================================================
+export PATH="$HOME/.local/bin:$PATH"
+
+# Go
+export GOPATH="$HOME/go"
+export PATH="/usr/local/go/bin:$GOPATH/bin:$PATH"
+
+
+# =========================================================
+# NVM
+# =========================================================
+export NVM_DIR="$HOME/.nvm"
+[ -s "/usr/share/nvm/init-nvm.sh" ] && source "/usr/share/nvm/init-nvm.sh"
+
+
+# =========================================================
+# FZF
+# =========================================================
 source <(fzf --zsh)
 
-# Starship
+
+# =========================================================
+# ZOXIDE
+# =========================================================
+eval "$(zoxide init zsh)"
+
+
+# =========================================================
+# STARSHIP
+# =========================================================
 eval "$(starship init zsh)"
+
+
+# =========================================================
+# GITHUB CLI
+# =========================================================
+eval "$(gh completion -s zsh)"
+
+
+# =========================================================
+# PLUGINS ZSH
+# =========================================================
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+
+# =========================================================
+# ALIASES GERAIS
+# =========================================================
+alias c='clear'
+alias ll='ls -lah'
+alias la='ls -A'la
+alias grep='grep --color=auto'
+
+alias cd='z'
 
 alias discord='discord --enable-features=UseOzonePlatform --ozone-platform=wayland'
 
-fastfetch
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "/usr/share/nvm/init-nvm.sh" ] && \. "/usr/share/nvm/init-nvm.sh"
+# =========================================================
+# ALIASES DO PROJETO OMNI
+# =========================================================
+alias omni-run='OMNI_USE_PROJECT_SECRETS=1 go run main.go'
 
-export GOPATH=$HOME/go
-export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
-export PATH=/usr/local/go/bin:$PATH
 
-eval "$(zoxide init zsh)"
-eval "$(gh completion -s zsh)"
-
-# -------------------------
-# BASE GIT
-# -------------------------
+# =========================================================
+# ALIASES GIT
+# =========================================================
 alias gs="git status"
 alias gl="git log --oneline --graph --decorate"
 alias gaa="git add ."
@@ -46,16 +121,13 @@ alias gpl="git pull origin develop"
 alias gps="git push"
 alias gbn="git branch"
 
-# -------------------------
-# ATUALIZAR DEVELOP
-# -------------------------
-alias gdev='git fetch origin && git switch develop || git switch -c develop origin/develop && git pull origin develop'
+# =========================================================
+# FUNÇÕES GIT
+# =========================================================
 
-# -------------------------
-# CRIAR BRANCH PADRÃO OMNI
-# -------------------------
+# Criar branch padrão OMNI
 gb() {
-  branch=$1
+  local branch="$1"
 
   if [ -z "$branch" ]; then
     echo "❌ Informe o nome da branch"
@@ -76,103 +148,55 @@ gb() {
   git switch -c "$branch"
 }
 
-# -------------------------
-# COMMIT COM COPILOT
-# -------------------------
-gcm-ai() {
-  echo "📦 Adicionando arquivos..."
-  git add .
+# Push automático da branch atual
+gpush() {
+  local branch
+  branch="$(git branch --show-current)"
 
-  echo "🤖 Gerando commit..."
-  msg=$(gh copilot suggest "generate a conventional commit message based on staged changes")
-
-  if [ -z "$msg" ]; then
-    echo "❌ Copilot falhou"
+  if [ -z "$branch" ]; then
+    echo "❌ Não foi possível identificar a branch atual"
     return 1
   fi
 
-  echo "📝 $msg"
-
-  read "confirm?Confirmar commit? (y/n): "
-
-  if [[ "$confirm" != "y" ]]; then
-    echo "Cancelado"
-    return
-  fi
-
-  git commit -m "$msg"
-}
-
-# -------------------------
-# PUSH AUTOMÁTICO
-# -------------------------
-gpush() {
-  branch=$(git branch --show-current)
   git push -u origin "$branch"
 }
 
-# -------------------------
-# CRIAR PR
-# -------------------------
+# Criar PR para develop
 gpr() {
-  branch=$(git branch --show-current)
+  local branch
+  branch="$(git branch --show-current)"
+
+  if [ -z "$branch" ]; then
+    echo "❌ Não foi possível identificar a branch atual"
+    return 1
+  fi
+
   gh pr create --base develop --head "$branch" --fill
 }
 
-# -------------------------
-# MERGE PR
-# -------------------------
+# Merge PR atual
 gmerge() {
   gh pr merge --squash --delete-branch
 }
 
-# -------------------------
-# FLOW COMPLETO (1 COMANDO)
-# -------------------------
-gflow() {
-  branch=$(git branch --show-current)
-
-  echo "[INFO] Add..."
-  git add .
-
-  echo "[INFO] Gerando commit..."
-  msg=$(
-    copilot -p "Return only one conventional commit message. No explanation. No markdown. No commands. Only the commit title. Based on staged git changes." 2>/dev/null \
-    | grep -E '^(feat|fix|chore|refactor|style|docs|test|perf|build|ci)(\(.+\))?: .+' \
-    | tail -n 1
-  )
-
-  if [ -z "$msg" ]; then
-    echo "[WARN] Copilot falhou, digite manual:"
-    read "msg?Commit: "
-  else
-    echo "[COMMIT] $msg"
-    read "confirm?Usar essa mensagem? (y/n): "
-    if [[ "$confirm" != "y" ]]; then
-      read "msg?Commit: "
-    fi
-  fi
-
-  git commit -m "$msg"
-  git push -u origin "$branch"
-  gh pr create --base develop --head "$branch" --title "$msg" --body "$msg"
-
-  echo "[OK] Finalizado"
-}
-
-# -------------------------
-# LIMPAR WORKSPACE
-# -------------------------
+# Limpar workspace
 gclean() {
   git reset --hard
   git clean -fd
 }
 
-# -------------------------
-# TROCAR BRANCH RÁPIDO
-# -------------------------
+# Trocar branch rápido
 gco() {
+  if [ -z "$1" ]; then
+    echo "❌ Informe o nome da branch"
+    return 1
+  fi
+
   git switch "$1"
 }
-export PATH="$HOME/.local/bin:$PATH"
-alias omni-dev='OMNI_USE_PROJECT_SECRETS=1 go run main.go'
+
+
+# =========================================================
+# INICIALIZAÇÃO VISUAL
+# =========================================================
+fastfetch

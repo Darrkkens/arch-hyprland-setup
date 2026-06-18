@@ -147,6 +147,8 @@ tooltip label{
 #custom-keyboard,
 #custom-light_dark,
 #custom-lock,
+#custom-media-info,
+#custom-media-progress,
 #custom-hint,
 #custom-hypridle,
 #custom-menu,
@@ -157,6 +159,9 @@ tooltip label{
 #custom-reboot,
 #custom-settings,
 #custom-spotify,
+#custom-media-previous,
+#custom-media-play-pause,
+#custom-media-next,
 #custom-swaync,
 #custom-tty,
 #custom-updater,
@@ -186,6 +191,34 @@ tooltip label{
 #pulseaudio.muted {
 	color: #cc3436;
 }
+
+#mpris {
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+#custom-media-info {
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+#custom-media-progress {
+	padding-left: 8px;
+	padding-right: 8px;
+}
+
+#custom-media-previous,
+#custom-media-play-pause,
+#custom-media-next {
+	padding-left: 7px;
+	padding-right: 7px;
+}
+
+#image.media-cover {
+	padding-left: 4px;
+	padding-right: 4px;
+}
+
 #temperature.critical {
 	color: red;
 }

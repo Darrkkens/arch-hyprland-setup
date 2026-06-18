@@ -67,6 +67,23 @@
 	]
 },
 
+"group/media": {
+	"orientation": "inherit",
+	"drawer": {
+		"transition-duration": 300,
+		"children-class": "media-controls",
+		"transition-left-to-right": true
+	},
+	"modules": [
+		"custom/media-info",
+		"image#media-cover",
+		"custom/media-progress",
+		"custom/media-previous",
+		"custom/media-play-pause",
+		"custom/media-next"
+	]
+},
+
 "group/connections": {
 	"orientation": "inherit",
 	"drawer": {

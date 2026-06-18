@@ -153,6 +153,54 @@
 	"on-scroll-down": "$HOME/.config/hypr/scripts/volume.sh --dec",
 	"smooth-scrolling-threshold": 1,
 },
+
+"custom/media-info": {
+	"exec": "$HOME/.config/waybar/scripts/MediaInfo.sh",
+	"return-type": "json",
+	"escape": true,
+	"interval": 1,
+	"max-length": 52,
+	"on-click": "$HOME/.config/waybar/scripts/FocusMedia.sh",
+	"on-click-middle": "playerctl --player=playerctld previous",
+	"on-click-right": "playerctl --player=playerctld next",
+	"scroll-step": 5.0,
+	"on-scroll-up": "$HOME/.config/hypr/scripts/volume.sh --inc",
+	"on-scroll-down": "$HOME/.config/hypr/scripts/volume.sh --dec",
+	"smooth-scrolling-threshold": 1,
+	"tooltip": true,
+},
+
+"custom/media-previous": {
+	"format": "󰒮",
+	"on-click": "playerctl --player=playerctld previous",
+	"tooltip": false,
+},
+
+"custom/media-progress": {
+	"exec": "$HOME/.config/waybar/scripts/MediaProgress.sh",
+	"interval": 1,
+	"format": "{}",
+	"on-click": "playerctl --player=playerctld position 60-",
+	"on-click-right": "playerctl --player=playerctld position 60+",
+	"on-scroll-up": "playerctl --player=playerctld position 5+",
+	"on-scroll-down": "playerctl --player=playerctld position 5-",
+	"smooth-scrolling-threshold": 1,
+	"tooltip": false,
+},
+
+"custom/media-play-pause": {
+	"exec": "$HOME/.config/waybar/scripts/MediaStatus.sh",
+	"format": "{}",
+	"restart-interval": 1,
+	"on-click": "playerctl --player=playerctld play-pause",
+	"tooltip": false,
+},
+
+"custom/media-next": {
+	"format": "󰒭",
+	"on-click": "playerctl --player=playerctld next",
+	"tooltip": false,
+},
     
 "custom/power": {
 	"format": "⏻",

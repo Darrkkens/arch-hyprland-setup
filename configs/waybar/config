@@ -25,6 +25,8 @@
 	"clock",
 	"custom/separator#blank",
 	"custom/weather",
+	"custom/separator#dot-line",
+	"group/media",
 	"custom/separator#blank",
 	"tray",
 	],
