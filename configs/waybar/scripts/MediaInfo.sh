@@ -1,18 +1,23 @@
 #!/usr/bin/env bash
 
-player="playerctld"
+player="$("$HOME/.config/waybar/scripts/MediaPlayer.sh")"
 
-status="$(playerctl --player="$player" status 2>/dev/null || true)"
+if [[ -z "$player" ]]; then
+	printf '{"text":"","tooltip":"","class":"stopped"}\n'
+	exit 0
+fi
+
+metadata="$(
+	timeout 1s playerctl --player="$player" metadata \
+		--format $'{{status}}\x1f{{xesam:artist}}\x1f{{xesam:title}}\x1f{{xesam:url}}\x1f{{mpris:trackid}}' \
+		2>/dev/null || true
+)"
+IFS=$'\x1f' read -r status artist title url track_id <<< "$metadata"
 
 if [[ -z "$status" || "$status" == "Stopped" ]]; then
 	printf '{"text":"","tooltip":"","class":"stopped"}\n'
 	exit 0
 fi
-
-artist="$(playerctl --player="$player" metadata xesam:artist 2>/dev/null || true)"
-title="$(playerctl --player="$player" metadata xesam:title 2>/dev/null || true)"
-url="$(playerctl --player="$player" metadata xesam:url 2>/dev/null || true)"
-track_id="$(playerctl --player="$player" metadata mpris:trackid 2>/dev/null || true)"
 
 case "$url|$track_id" in
 	*youtube.com/*|*youtu.be/*)

@@ -139,6 +139,7 @@ tooltip label{
 #custom-backlight,
 #custom-browser,
 #custom-cava_mviz,
+#custom-ci-qa,
 #custom-clipboard,
 #custom-cycle_wall,
 #custom-dot_update,
@@ -190,6 +191,19 @@ tooltip label{
 
 #pulseaudio.muted {
 	color: #cc3436;
+}
+
+#custom-ci-qa.success {
+	color: #39ff14;
+}
+
+#custom-ci-qa.failure,
+#custom-ci-qa.cancelled {
+	color: #cc3436;
+}
+
+#custom-ci-qa.running {
+	color: #f9e2af;
 }
 
 #mpris {

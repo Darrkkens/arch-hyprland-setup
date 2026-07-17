@@ -270,7 +270,7 @@
 "image#media-cover": {
 	"exec": "$HOME/.config/waybar/scripts/MediaCover.sh",
 	"size": 28,
-	"interval": 2,
+	"signal": 8,
 	"on-click": "$HOME/.config/waybar/scripts/OpenMedia.sh",
 	"tooltip": false,
 },

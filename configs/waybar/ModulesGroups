@@ -19,6 +19,8 @@
 		"custom/tty",
 		"custom/browser",
 		"custom/settings",
+		"custom/timer",
+		"custom/ci-qa",
 	]
 },
 "group/motherboard": {
@@ -76,7 +78,6 @@
 	},
 	"modules": [
 		"custom/media-info",
-		"image#media-cover",
 		"custom/media-progress",
 		"custom/media-previous",
 		"custom/media-play-pause",

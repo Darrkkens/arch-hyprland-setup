@@ -1,0 +1,62 @@
+/* Timer picker - dark theme */
+* {
+    bg:       #1e1e2e;
+    bg-alt:   #313244;
+    fg:       #cdd6f4;
+    accent:   #89b4fa;
+    urgent:   #f38ba8;
+    font:     "monospace 11";
+    background-color: transparent;
+    text-color: @fg;
+}
+
+window {
+    background-color: @bg;
+    border:          2px;
+    border-color:    @accent;
+    border-radius:   10px;
+    width:           18em;
+    padding:         12px;
+}
+
+mainbox {
+    spacing: 10px;
+}
+
+inputbar {
+    background-color: @bg-alt;
+    border-radius:    8px;
+    padding:          8px 12px;
+    spacing:          8px;
+    children:         [ prompt, entry ];
+}
+
+prompt {
+    text-color: @accent;
+}
+
+entry {
+    placeholder:       "type duration…";
+    placeholder-color: #6c7086;
+}
+
+listview {
+    lines:        11;
+    scrollbar:    false;
+    fixed-height: false;
+}
+
+element {
+    padding:       6px 10px;
+    border-radius: 6px;
+}
+
+element selected {
+    background-color: @accent;
+    text-color:       @bg;
+}
+
+element-text {
+    background-color: transparent;
+    text-color:       inherit;
+}

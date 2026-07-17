@@ -1,8 +1,13 @@
 #!/usr/bin/env bash
 
-player="playerctld"
-url="$(playerctl --player="$player" metadata xesam:url 2>/dev/null || true)"
-track_id="$(playerctl --player="$player" metadata mpris:trackid 2>/dev/null || true)"
+player="$("$HOME/.config/waybar/scripts/MediaPlayer.sh")"
+[[ -z "$player" ]] && exit 0
+metadata="$(
+	timeout 1s playerctl --player="$player" metadata \
+		--format $'{{xesam:url}}\x1f{{mpris:trackid}}\x1f{{mpris:length}}' \
+		2>/dev/null || true
+)"
+IFS=$'\x1f' read -r url track_id length_us <<< "$metadata"
 
 case "$url|$track_id" in
 	*open.spotify.com/*|*spotify:*|*/com/spotify/*)
@@ -12,8 +17,7 @@ case "$url|$track_id" in
 		;;
 esac
 
-position="$(playerctl --player="$player" position 2>/dev/null || true)"
-length_us="$(playerctl --player="$player" metadata mpris:length 2>/dev/null || true)"
+position="$(timeout 1s playerctl --player="$player" position 2>/dev/null || true)"
 
 [[ "$position" =~ ^[0-9]+([.][0-9]+)?$ && "$length_us" =~ ^[0-9]+$ ]] || exit 0
 

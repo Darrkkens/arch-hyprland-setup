@@ -1,7 +1,10 @@
 /* ---- 💫 https://github.com/JaKooLit 💫 ---- */
 
 /* My Mostly Used waybar config incase you wonder :) */
+[
+/* ===== FULL BAR - big screen (HDMI-A-1 ultrawide) ===== */
 {
+"output": ["HDMI-A-1"],
 "include": [
   "$HOME/.config/waybar/Modules",
   "$HOME/.config/waybar/ModulesWorkspaces",
@@ -36,7 +39,8 @@
 	"custom/separator#dot-line",
 	"hyprland/workspaces#numbers",
 	"custom/separator#dot-line",
-	"group/notify",	
+	"group/notify",
+	"custom/timer-display",
 	],
 
 "modules-right": [
@@ -45,11 +49,56 @@
 	"group/laptop",
 	"custom/separator#blank",
 	"group/mobo_drawer",
-	"custom/separator#line",  
+	"custom/separator#line",
 	"group/audio",
 	"custom/separator#line",
 	"group/connections",
 	"custom/separator#dot-line",
 	"group/status",
 	],
-}
+},
+
+/* ===== MINIMAL BAR - small screen (eDP-1 laptop) ===== */
+{
+"output": ["eDP-1"],
+"include": [
+  "$HOME/.config/waybar/Modules",
+  "$HOME/.config/waybar/ModulesWorkspaces",
+  "$HOME/.config/waybar/ModulesCustom",
+  "$HOME/.config/waybar/ModulesGroups",
+  "$HOME/.config/waybar/UserModules",
+  ],
+"layer": "bottom",
+"exclusive": true,
+"passthrough": false,
+"position": "top",
+"spacing": 3,
+"fixed-center": true,
+"ipc": true,
+"margin-top": 3,
+"margin-left": 8,
+"margin-right": 8,
+
+"modules-left": [
+	"clock",
+	"custom/separator#blank",
+	"custom/weather",
+	],
+
+"modules-center": [
+	"group/app_drawer",
+	"custom/separator#dot-line",
+	"hyprland/workspaces#numbers",
+	"custom/separator#dot-line",
+	"group/notify",
+	],
+
+"modules-right": [
+	"battery",
+	"custom/separator#line",
+	"group/audio",
+	"custom/separator#blank",
+	"custom/power",
+	],
+},
+]

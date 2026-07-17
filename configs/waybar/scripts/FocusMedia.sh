@@ -1,8 +1,12 @@
 #!/usr/bin/env bash
 
-player="playerctld"
-url="$(playerctl --player="$player" metadata xesam:url 2>/dev/null || true)"
-title="$(playerctl --player="$player" metadata xesam:title 2>/dev/null || true)"
+player="$("$HOME/.config/waybar/scripts/MediaPlayer.sh")"
+[[ -z "$player" ]] && exit 0
+metadata="$(
+	timeout 1s playerctl --player="$player" metadata \
+		--format $'{{xesam:url}}\x1f{{xesam:title}}' 2>/dev/null || true
+)"
+IFS=$'\x1f' read -r url title <<< "$metadata"
 
 [[ -z "$url" && -z "$title" ]] && exit 0
 

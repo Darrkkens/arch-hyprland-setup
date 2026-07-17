@@ -65,6 +65,16 @@
 	"tooltip": true,
 },
 
+"custom/ci-qa": {
+	"exec": "$HOME/.config/waybar/scripts/GitHubQA.sh",
+	"return-type": "json",
+	"escape": true,
+	"interval": 60,
+	"on-click": "$HOME/.config/waybar/scripts/GitHubQA.sh open",
+	"on-click-right": "$HOME/.config/waybar/scripts/GitHubQA.sh prs",
+	"tooltip": true,
+},
+
 "custom/cycle_wall": {
 	"format": " ",
 	"on-click": "$HOME/.config/hypr/UserScripts/WallpaperSelect.sh",
@@ -108,6 +118,26 @@
 	"on-click": "$HOME/.config/waybar/scripts/SwitchKeyboardLayout.sh toggle",
 	"tooltip": true,
 	"tooltip-format": "Switch keyboard layout",
+},
+
+"custom/timer-display": {
+	"exec": "$HOME/.config/waybar/scripts/Timer.sh display",
+	"return-type": "json",
+	"interval": 1,
+	"format": "{}",
+	"on-click": "$HOME/.config/waybar/scripts/Timer.sh menu",
+	"on-click-right": "$HOME/.config/waybar/scripts/Timer.sh cancel",
+	"tooltip": true,
+},
+
+"custom/timer": {
+	"exec": "$HOME/.config/waybar/scripts/Timer.sh status",
+	"return-type": "json",
+	"interval": 1,
+	"format": "{}",
+	"on-click": "$HOME/.config/waybar/scripts/Timer.sh menu",
+	"on-click-right": "$HOME/.config/waybar/scripts/Timer.sh cancel",
+	"tooltip": true,
 },
 
 "custom/light_dark": {
@@ -158,11 +188,11 @@
 	"exec": "$HOME/.config/waybar/scripts/MediaInfo.sh",
 	"return-type": "json",
 	"escape": true,
-	"interval": 1,
+	"interval": 2,
 	"max-length": 52,
 	"on-click": "$HOME/.config/waybar/scripts/FocusMedia.sh",
-	"on-click-middle": "playerctl --player=playerctld previous",
-	"on-click-right": "playerctl --player=playerctld next",
+	"on-click-middle": "$HOME/.config/waybar/scripts/MediaControl.sh previous",
+	"on-click-right": "$HOME/.config/waybar/scripts/MediaControl.sh next",
 	"scroll-step": 5.0,
 	"on-scroll-up": "$HOME/.config/hypr/scripts/volume.sh --inc",
 	"on-scroll-down": "$HOME/.config/hypr/scripts/volume.sh --dec",
@@ -172,18 +202,18 @@
 
 "custom/media-previous": {
 	"format": "󰒮",
-	"on-click": "playerctl --player=playerctld previous",
+	"on-click": "$HOME/.config/waybar/scripts/MediaControl.sh previous",
 	"tooltip": false,
 },
 
 "custom/media-progress": {
 	"exec": "$HOME/.config/waybar/scripts/MediaProgress.sh",
-	"interval": 1,
+	"interval": 2,
 	"format": "{}",
-	"on-click": "playerctl --player=playerctld position 60-",
-	"on-click-right": "playerctl --player=playerctld position 60+",
-	"on-scroll-up": "playerctl --player=playerctld position 5+",
-	"on-scroll-down": "playerctl --player=playerctld position 5-",
+	"on-click": "$HOME/.config/waybar/scripts/MediaControl.sh position 60-",
+	"on-click-right": "$HOME/.config/waybar/scripts/MediaControl.sh position 60+",
+	"on-scroll-up": "$HOME/.config/waybar/scripts/MediaControl.sh position 5+",
+	"on-scroll-down": "$HOME/.config/waybar/scripts/MediaControl.sh position 5-",
 	"smooth-scrolling-threshold": 1,
 	"tooltip": false,
 },
@@ -191,14 +221,14 @@
 "custom/media-play-pause": {
 	"exec": "$HOME/.config/waybar/scripts/MediaStatus.sh",
 	"format": "{}",
-	"restart-interval": 1,
-	"on-click": "playerctl --player=playerctld play-pause",
+	"interval": 1,
+	"on-click": "$HOME/.config/waybar/scripts/MediaControl.sh play-pause",
 	"tooltip": false,
 },
 
 "custom/media-next": {
 	"format": "󰒭",
-	"on-click": "playerctl --player=playerctld next",
+	"on-click": "$HOME/.config/waybar/scripts/MediaControl.sh next",
 	"tooltip": false,
 },
     

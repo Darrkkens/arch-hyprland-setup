@@ -141,6 +141,7 @@ tooltip label{
 #custom-backlight,
 #custom-browser,
 #custom-cava_mviz,
+#custom-ci-qa,
 #custom-clipboard,
 #custom-cycle_wall,
 #custom-dot_update,
@@ -160,6 +161,7 @@ tooltip label{
 #custom-quit,
 #custom-reboot,
 #custom-settings,
+#custom-timer,
 #custom-spotify,
 #custom-media-previous,
 #custom-media-play-pause,
@@ -195,6 +197,19 @@ tooltip label{
 
 #pulseaudio.muted {
 	color: #cc3436;
+}
+
+#custom-ci-qa.success {
+	color: #39ff14;
+}
+
+#custom-ci-qa.failure,
+#custom-ci-qa.cancelled {
+	color: #cc3436;
+}
+
+#custom-ci-qa.running {
+	color: #f9e2af;
 }
 
 #mpris {
@@ -241,6 +256,25 @@ tooltip label{
 
 #custom-vpn.disconnected {
 	color: #cc3436;
+}
+
+#custom-timer.active {
+	color: @primary;
+}
+
+/* live countdown pill next to notifications: visible only while a timer runs */
+#custom-timer-display.active {
+	color: @primary;
+	background-color: alpha(@surface_container, 0.75);
+	border-radius: 20px;
+	padding: 8px 15px;
+	margin: 0 0 0 5px;
+}
+#custom-timer-display.idle {
+	padding: 0;
+	margin: 0;
+	min-width: 0;
+	background-color: transparent;
 }
 
 @keyframes blink {

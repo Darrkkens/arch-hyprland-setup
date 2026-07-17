@@ -1,0 +1,221 @@
+/* SwayNotificationCenter - Material You (verde) - combina com waybar */
+
+@define-color surface            #0f1511;
+@define-color surface-low        #171d19;
+@define-color surface-container  #1b211d;
+@define-color surface-high       #252b28;
+@define-color surface-highest    #303632;
+@define-color on-surface         #dee4de;
+@define-color on-surface-dim     #bfc9c1;
+@define-color primary            #8dd5b2;
+@define-color on-primary         #003825;
+@define-color tertiary           #a5ccde;
+@define-color outline            #8a938c;
+@define-color error              #ffb4ab;
+
+* {
+  font-family: "JetBrainsMono Nerd Font", "Noto Sans", sans-serif;
+  font-size: 14px;
+  background: none;
+  box-shadow: none;
+  border: none;
+}
+
+/* ---------- Notificações flutuantes (popup) ---------- */
+
+.notification-row {
+  background: transparent;
+  margin: 0;
+}
+
+.notification {
+  border-radius: 16px;
+  margin: 8px 12px 0 12px;
+  padding: 0;
+  background: alpha(@surface-container, 0.98);
+  border: 1px solid alpha(@outline, 0.25);
+}
+
+.notification.critical {
+  border: 1px solid @error;
+}
+
+.notification-content {
+  padding: 12px;
+  border-radius: 16px;
+}
+
+.notification-default-action,
+.notification-action {
+  border-radius: 12px;
+  background: transparent;
+}
+
+.notification-default-action:hover {
+  background: @surface-high;
+}
+
+/* Fecha (x) e ações */
+.close-button {
+  background: alpha(@surface-highest, 0.9);
+  color: @on-surface-dim;
+  border-radius: 100%;
+  margin: 6px;
+  padding: 0;
+  min-width: 22px;
+  min-height: 22px;
+}
+
+.close-button:hover {
+  background: @error;
+  color: @surface;
+}
+
+.notification-action {
+  margin: 6px 4px 0 4px;
+  padding: 6px;
+  background: @surface-high;
+  color: @on-surface;
+  border: 1px solid alpha(@outline, 0.2);
+}
+
+.notification-action:hover {
+  background: @primary;
+  color: @on-primary;
+}
+
+/* Textos */
+.summary {
+  font-size: 15px;
+  font-weight: bold;
+  color: @on-surface;
+}
+
+.time {
+  font-size: 12px;
+  color: @on-surface-dim;
+}
+
+.body {
+  font-size: 13px;
+  color: @on-surface-dim;
+}
+
+.app-name {
+  font-size: 12px;
+  color: @primary;
+}
+
+/* Ícone da app */
+.notification-content .icon,
+.notification-content image {
+  border-radius: 12px;
+}
+
+/* ---------- Control Center ---------- */
+
+.control-center {
+  background: alpha(@surface, 0.97);
+  border-radius: 20px;
+  border: 1px solid alpha(@outline, 0.25);
+  padding: 14px;
+  margin: 0;
+}
+
+.control-center .notification-row .notification-background .notification {
+  margin: 6px 4px;
+  background: @surface-low;
+}
+
+.control-center .notification-row .notification-background .notification.critical {
+  border: 1px solid @error;
+}
+
+/* Cabeçalho / título widget */
+.widget-title {
+  color: @on-surface;
+  font-size: 18px;
+  font-weight: bold;
+  margin: 4px 6px 12px 6px;
+}
+
+.widget-title > button {
+  background: @surface-high;
+  color: @on-surface;
+  border-radius: 12px;
+  padding: 6px 14px;
+  font-size: 13px;
+  border: 1px solid alpha(@outline, 0.2);
+}
+
+.widget-title > button:hover {
+  background: @primary;
+  color: @on-primary;
+}
+
+/* Do Not Disturb */
+.widget-dnd {
+  color: @on-surface;
+  font-size: 15px;
+  margin: 6px;
+}
+
+.widget-dnd > switch {
+  background: @surface-high;
+  border-radius: 100px;
+  border: 1px solid alpha(@outline, 0.25);
+}
+
+.widget-dnd > switch:checked {
+  background: @primary;
+}
+
+.widget-dnd > switch slider {
+  background: @on-surface;
+  border-radius: 100px;
+}
+
+.widget-dnd > switch:checked slider {
+  background: @on-primary;
+}
+
+/* MPRIS (player de mídia) */
+.widget-mpris {
+  background: @surface-container;
+  border-radius: 16px;
+  padding: 8px;
+  margin: 6px 4px;
+}
+
+.widget-mpris-player {
+  padding: 8px;
+  border-radius: 12px;
+}
+
+.widget-mpris-title {
+  font-weight: bold;
+  color: @on-surface;
+  font-size: 14px;
+}
+
+.widget-mpris-subtitle {
+  color: @on-surface-dim;
+  font-size: 12px;
+}
+
+.widget-mpris button {
+  background: transparent;
+  color: @on-surface;
+  border-radius: 100%;
+}
+
+.widget-mpris button:hover {
+  background: @surface-high;
+  color: @primary;
+}
+
+/* Placeholder "sem notificações" */
+.control-center .notification-row:only-child .notification-background .notification .notification-content .body,
+.blank-window {
+  color: @on-surface-dim;
+}

@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-LOCATION="${WEATHER_LOCATION:-Treze Tilias, Santa Catarina, BR}"
+LOCATION="${WEATHER_LOCATION:-Joacaba, Santa Catarina, BR}"
 CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/waybar"
 LOCATION_ID="$(printf "%s" "$LOCATION" | sha256sum | cut -d' ' -f1)"
 CACHE_FILE="$CACHE_DIR/weather-${LOCATION_ID}.json"

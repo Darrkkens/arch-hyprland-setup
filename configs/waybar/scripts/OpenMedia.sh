@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-url="$(playerctl --player=playerctld metadata xesam:url 2>/dev/null || true)"
+player="$("$HOME/.config/waybar/scripts/MediaPlayer.sh")"
+url="$(timeout 1s playerctl --player="$player" metadata xesam:url 2>/dev/null || true)"
 
 [[ -z "$url" ]] && exit 0
 
