@@ -1,6 +1,6 @@
 # Arch + Hyprland Setup
 
-Configuração pessoal de ambiente Linux baseada em Arch Linux + Hyprland, com foco em produtividade, aparência consistente e sincronização simples dos dotfiles.
+Configuração pessoal de ambiente Linux baseada em Arch Linux + Hyprland.
 
 ![Preview do setup](images/setup.jpeg)
 
@@ -181,4 +181,4 @@ Waybar:
 
 ## Observações
 
-Esta configuração é pessoal e pode depender de nomes de monitores, caminhos locais, temas instalados e preferências específicas do ambiente. Revise os arquivos em `configs/hypr/` e `configs/waybar/` antes de aplicar em outra máquina.
+Esta configuração é pessoal e pode depender de nomes de monitores, caminhos locais, temas instalados e preferências específicas do ambiente. Revise os arquivos em `configs/hypr/` e `configs/waybar/` antes de aplicar.
