@@ -13,11 +13,15 @@ ghpending-bin
 google-calendar-tui-bin
 insomnia-bin
 insomnia-bin-debug
+litehtml0.9
 localsend
 matugen-bin
 matugen-bin-debug
 pixie-sddm-git
 postman-bin
+python-pkg_resources
+recordly
+recordly-debug
 vesktop-debug
 visual-studio-code-bin
 walker

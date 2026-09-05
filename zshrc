@@ -212,3 +212,10 @@ esac
 
 # Added by CodeRabbit CLI installer
 export PATH="/home/zwx/.local/bin:$PATH"
+
+# Ruby user gems (rails, bundler binstubs)
+export GEM_HOME="$HOME/.local/share/gem/ruby/3.4.0"
+export PATH="$GEM_HOME/bin:$PATH"
+
+# kimi-code
+export PATH="/home/zwx/.kimi-code/bin:$PATH"
