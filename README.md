@@ -6,6 +6,8 @@ Configuração pessoal de ambiente Linux.
 > 🚀 **O sistema foi migrado para Arch + Noctalia (CachyOS)!**
 > Novas funcionalidades estão vindo aí!!!
 
+![Preview do setup atual](images/setup.png)
+
 ## Stack atual
 
 * **Distro:** CachyOS (base Arch Linux).
