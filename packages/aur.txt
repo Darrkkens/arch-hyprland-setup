@@ -1,0 +1,7 @@
+beekeeper-studio
+burpsuite
+input-remapper-git
+postman-bin
+spicetify-cli
+spicetify-themes-git
+spotify

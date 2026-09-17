@@ -1,13 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-echo "Este script é do setup legado (Hyprland + Waybar) e não deve mais ser usado." >&2
-echo "Use ./scripts/update.sh na raiz do repositório." >&2
-exit 1
-
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 CONFIG_DIR="$ROOT_DIR/configs"
 PACKAGE_DIR="$ROOT_DIR/packages"
+WALLPAPER_SOURCE="$HOME/Pictures/Wallpapers"
 
 sync_config_dir() {
   local name="$1"
@@ -16,14 +13,14 @@ sync_config_dir() {
 
   if [[ -d "$source" ]]; then
     mkdir -p "$target"
-    rsync -a --delete "$source/" "$target/"
+    rsync -a --delete --exclude '*.bak' "$source/" "$target/"
     echo "config atualizado: $name"
   fi
 }
 
 mkdir -p "$CONFIG_DIR" "$PACKAGE_DIR"
 
-for config in hypr waybar wlogout kitty swaync rofi wofi; do
+for config in hypr noctalia kitty alacritty cava fish satty uwsm; do
   sync_config_dir "$config"
 done
 
@@ -37,15 +34,17 @@ if [[ -f "$HOME/.zshrc" ]]; then
   echo "config atualizado: zshrc"
 fi
 
-pacman -Qqe | sort -u > "$PACKAGE_DIR/pacman.txt"
-cp "$PACKAGE_DIR/pacman.txt" "$ROOT_DIR/packages.txt"
+if [[ -d "$WALLPAPER_SOURCE" ]]; then
+  mkdir -p "$ROOT_DIR/wallpapers"
+  rsync -a --delete "$WALLPAPER_SOURCE/" "$ROOT_DIR/wallpapers/"
+  echo "wallpapers atualizados"
+fi
+
+pacman -Qqen | sort -u > "$PACKAGE_DIR/pacman.txt"
 echo "pacotes oficiais atualizados"
 
-if command -v yay >/dev/null 2>&1; then
-  yay -Qqm | sort -u > "$PACKAGE_DIR/aur.txt"
-  cp "$PACKAGE_DIR/aur.txt" "$ROOT_DIR/aur-packages.txt"
-  echo "pacotes AUR atualizados"
-fi
+pacman -Qqem | sort -u > "$PACKAGE_DIR/aur.txt"
+echo "pacotes AUR atualizados"
 
 if command -v flatpak >/dev/null 2>&1; then
   flatpak list --app --columns=application | sort -u > "$PACKAGE_DIR/flatpak.txt"
