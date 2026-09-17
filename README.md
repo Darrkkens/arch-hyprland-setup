@@ -50,7 +50,13 @@ packages/
 └── pacman.txt        # pacotes oficiais (explícitos)
 
 scripts/
+├── common.sh         # lista de configs usada pelos dois scripts
+├── install.sh        # instala pacotes, restaura configs e ativa serviços
 └── update.sh         # sincroniza ~/.config -> repositório
+
+system/
+├── services.txt      # serviços do systemd ativados
+└── user-services.txt # serviços do usuário ativados
 
 wallpapers/           # cópia de ~/Pictures/Wallpapers
 zshrc
@@ -83,30 +89,43 @@ legacy/               # setup antigo (Hyprland + Waybar)
 
 A lista completa está em `configs/hypr/config/binds.lua`.
 
+## Instalar em um sistema novo
+
+```bash
+git clone https://github.com/Darrkkens/arch-hyprland-setup.git
+cd arch-hyprland-setup
+./scripts/install.sh --dry-run   # confere o que vai ser feito
+./scripts/install.sh
+```
+
+O `install.sh`:
+
+1. Instala os pacotes de `packages/pacman.txt` (ignora e avisa os que não existem nos repositórios), depois os de `packages/aur.txt` com `paru` ou `yay` e os flatpaks, se houver. O AUR roda **sem** `--noconfirm` para você revisar os PKGBUILDs.
+2. Restaura as configurações listadas em `scripts/common.sh`, o `~/.zshrc` e os wallpapers. Arquivos que já existem e são diferentes vão para `~/.config-backup/<data>/` antes de serem substituídos.
+3. Ativa os serviços de `system/services.txt` (com `sudo`) e `system/user-services.txt` (`systemctl --user`). Unidades que não existem na máquina são ignoradas.
+
+| Opção | Efeito |
+| --- | --- |
+| `--dry-run` | Só mostra os comandos, sem alterar nada |
+| `--link` | Cria links simbólicos para o repositório em vez de copiar |
+| `--skip-packages` | Pula a instalação de pacotes |
+| `--skip-configs` | Pula configurações e wallpapers |
+| `--skip-services` | Pula os serviços do systemd |
+
+Com `--link`, qualquer mudança no `~/.config` (inclusive os temas gerados pelo Noctalia) já cai direto no repositório, e o `update.sh` só precisa atualizar pacotes, serviços e wallpapers. Alguns programas do KDE regravam arquivos soltos, como `kdeglobals`, substituindo o link por um arquivo comum. Se isso acontecer, o `update.sh` volta a copiá-los normalmente.
+
+> [!TIP]
+> Em uma instalação limpa, rode o script a partir de um TTY ou antes de entrar no Hyprland, já que ele move a pasta `hypr` enquanto o compositor pode estar lendo a configuração.
+
 ## Atualizar o repositório
 
 ```bash
 ./scripts/update.sh
 ```
 
-O script sincroniza (com `rsync --delete`) as pastas `hypr`, `noctalia`, `kitty`, `alacritty`, `cava`, `fish`, `satty`, `uwsm`, `btop`, `gtk-3.0`, `gtk-4.0`, `qt5ct`, `qt6ct` e `xsettingsd`. Também copia os arquivos `starship.toml`, `kdeglobals`, `dolphinrc`, `mimeapps.list` e `user-dirs.*`, o `~/.zshrc`, os wallpapers de `~/Pictures/Wallpapers` e as listas de pacotes.
+O script sincroniza (com `rsync --delete`) as pastas e arquivos listados em `scripts/common.sh`, o `~/.zshrc`, os wallpapers de `~/Pictures/Wallpapers`, as listas de pacotes e os serviços do systemd ativados. Configs que já são links simbólicos (instaladas com `--link`) são puladas.
 
-## Restaurar configurações
-
-```bash
-mkdir -p ~/.config ~/Pictures/Wallpapers
-cp -r configs/{hypr,noctalia,kitty,alacritty,cava,fish,satty,uwsm,btop,gtk-3.0,gtk-4.0,qt5ct,qt6ct,xsettingsd} ~/.config/
-cp configs/{starship.toml,kdeglobals,dolphinrc,mimeapps.list,user-dirs.dirs,user-dirs.locale} ~/.config/
-cp zshrc ~/.zshrc
-cp -r wallpapers/. ~/Pictures/Wallpapers/
-```
-
-Instalar pacotes:
-
-```bash
-sudo pacman -S --needed - < packages/pacman.txt
-yay -S --needed - < packages/aur.txt
-```
+Para salvar uma config nova, adicione o nome em `CONFIG_DIRS` ou `CONFIG_FILES` no `scripts/common.sh`. Ela passa a ser salva pelo `update.sh` e restaurada pelo `install.sh`.
 
 ## Observações
 
