@@ -2,6 +2,10 @@
 
 Configuração pessoal de ambiente Linux baseada em Arch Linux + Hyprland.
 
+> [!IMPORTANT]
+> 🚀 **O sistema foi migrado para Arch + Noctalia (CachyOS)!**
+> Novas funcionalidades estão vindo aí!!!
+
 ![Preview do setup](images/setup.jpeg)
 
 ## O que está incluído
