@@ -15,7 +15,7 @@
 * SwayNC com configuração e estilo de notificações.
 * Wlogout com layout, estilo e ícones.
 * Starship e `.zshrc`.
-* Coleção de wallpapers.
+* Wallpapers: movidos para a pasta [`wallpapers/`](../wallpapers/) na raiz (eram idênticos).
 * Listas de pacotes Pacman, AUR e Flatpak.
 
 ## Estrutura
@@ -42,7 +42,6 @@ packages/
 scripts/
 └── update.sh
 
-wallpapers/
 images/
 zshrc
 packages.txt

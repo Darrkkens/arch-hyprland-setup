@@ -15,14 +15,18 @@ Configuração pessoal de ambiente Linux.
 * **Terminal:** Kitty (Alacritty como alternativa).
 * **Shell:** Zsh + Starship (Fish também configurado).
 * **Screenshots:** Satty para anotar capturas do Noctalia.
+* **Aparência GTK/Qt:** `adw-gtk3-dark`, ícones `breeze-dark`, cursor `Bibata-Modern-Ice` e fonte `Adwaita Sans 11`, com as cores do Noctalia via `qt5ct`/`qt6ct` e `kdeglobals`.
 
 ## Estrutura
 
 ```text
 configs/
 ├── alacritty/        # config + tema noctalia
+├── btop/             # config + tema noctalia
 ├── cava/             # tema noctalia
 ├── fish/
+├── gtk-3.0/          # settings.ini + css noctalia
+├── gtk-4.0/          # settings.ini + css noctalia
 ├── hypr/
 │   ├── hyprland.lua
 │   ├── xdph.conf
@@ -30,9 +34,15 @@ configs/
 ├── kitty/            # config + tema noctalia
 ├── noctalia/
 │   └── config.toml   # barra, widgets, sessão, tema
+├── qt5ct/ qt6ct/     # esquema de cores noctalia para Qt
 ├── satty/
 ├── uwsm/
 │   └── env           # variáveis de ambiente da sessão
+├── xsettingsd/       # tema/ícones/cursor para apps XWayland
+├── kdeglobals        # esquema de cores KDE (Dolphin etc.)
+├── dolphinrc
+├── mimeapps.list     # aplicativos padrão
+├── user-dirs.dirs    # pastas XDG (Documentos, Imagens...)
 └── starship.toml
 
 packages/
@@ -79,14 +89,14 @@ A lista completa está em `configs/hypr/config/binds.lua`.
 ./scripts/update.sh
 ```
 
-O script sincroniza (com `rsync --delete`) `hypr`, `noctalia`, `kitty`, `alacritty`, `cava`, `fish`, `satty` e `uwsm`, além de `starship.toml`, `~/.zshrc`, os wallpapers de `~/Pictures/Wallpapers` e as listas de pacotes.
+O script sincroniza (com `rsync --delete`) as pastas `hypr`, `noctalia`, `kitty`, `alacritty`, `cava`, `fish`, `satty`, `uwsm`, `btop`, `gtk-3.0`, `gtk-4.0`, `qt5ct`, `qt6ct` e `xsettingsd`. Também copia os arquivos `starship.toml`, `kdeglobals`, `dolphinrc`, `mimeapps.list` e `user-dirs.*`, o `~/.zshrc`, os wallpapers de `~/Pictures/Wallpapers` e as listas de pacotes.
 
 ## Restaurar configurações
 
 ```bash
 mkdir -p ~/.config ~/Pictures/Wallpapers
-cp -r configs/{hypr,noctalia,kitty,alacritty,cava,fish,satty,uwsm} ~/.config/
-cp configs/starship.toml ~/.config/starship.toml
+cp -r configs/{hypr,noctalia,kitty,alacritty,cava,fish,satty,uwsm,btop,gtk-3.0,gtk-4.0,qt5ct,qt6ct,xsettingsd} ~/.config/
+cp configs/{starship.toml,kdeglobals,dolphinrc,mimeapps.list,user-dirs.dirs,user-dirs.locale} ~/.config/
 cp zshrc ~/.zshrc
 cp -r wallpapers/. ~/Pictures/Wallpapers/
 ```
@@ -101,7 +111,10 @@ yay -S --needed - < packages/aur.txt
 ## Observações
 
 * Os monitores estão definidos em `configs/hypr/config/variables.lua` (`eDP-1` e `HDMI-A-1`). Ajuste para o seu hardware.
-* Os arquivos de tema `noctalia` (kitty, alacritty, cava) são gerados automaticamente pelo Noctalia a partir do wallpaper.
+* Os arquivos de tema `noctalia` (kitty, alacritty, cava, btop, GTK, Qt, `kdeglobals`) são gerados automaticamente pelo Noctalia a partir do wallpaper.
+* `gtk-4.0/assets` e `gtk-4.0/gtk-dark.css` são links simbólicos para `/usr/share/themes/adw-gtk3-dark`. O pacote `adw-gtk-theme` vem como dependência de `cachyos-hypr-noctalia`.
+* O cursor `Bibata-Modern-Ice` foi instalado manualmente em `~/.local/share/icons/` e não está nas listas de pacotes. Para reinstalar, use `bibata-cursor-theme-bin` (AUR).
+* `user-dirs.dirs` usa nomes de pastas em português. Ajuste se o sistema estiver em outro idioma.
 
 ## Setup legado
 

@@ -20,14 +20,16 @@ sync_config_dir() {
 
 mkdir -p "$CONFIG_DIR" "$PACKAGE_DIR"
 
-for config in hypr noctalia kitty alacritty cava fish satty uwsm; do
+for config in hypr noctalia kitty alacritty cava fish satty uwsm btop gtk-3.0 gtk-4.0 qt5ct qt6ct xsettingsd; do
   sync_config_dir "$config"
 done
 
-if [[ -f "$HOME/.config/starship.toml" ]]; then
-  cp "$HOME/.config/starship.toml" "$CONFIG_DIR/starship.toml"
-  echo "config atualizado: starship.toml"
-fi
+for file in starship.toml kdeglobals dolphinrc mimeapps.list user-dirs.dirs user-dirs.locale; do
+  if [[ -f "$HOME/.config/$file" ]]; then
+    cp "$HOME/.config/$file" "$CONFIG_DIR/$file"
+    echo "config atualizado: $file"
+  fi
+done
 
 if [[ -f "$HOME/.zshrc" ]]; then
   cp "$HOME/.zshrc" "$ROOT_DIR/zshrc"
